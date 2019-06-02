@@ -16,12 +16,20 @@ typedef void(*funcITest)();
 
 EndPoint ep("localhost", 9890);
 Comm comm(ep, "Comm");
+BlockingQueue<thread> queue;
 
 testHarness::testHarness()
 {
 	//EndPoint ep("localhost", 9890);
 	//Comm comm(ep, "Comm");
 	this->comm.start();
+
+	//thread t1, t2, t3, t4;
+
+	//queue.enQ(t1);
+	//queue.enQ(t2);
+	//queue.enQ(t3);
+	//queue.enQ(t4);
 }
 
 /*void testHarness::testFunction(string xmlPath)

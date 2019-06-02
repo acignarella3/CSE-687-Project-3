@@ -17,6 +17,6 @@ public:
 	~testHarness();
 	EndPoint ep;
 	Comm comm;
-	BlockingQueue<string> queue;
+	BlockingQueue<thread> queue;
 };
 
