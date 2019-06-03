@@ -3,10 +3,10 @@
 
 #include "pch.h"
 #include <iostream>
-#include <windows.h>
+//#include <windows.h>
 #include "testHarness.h"
 #include "../Comm/Message/Message.h"
-#include "../Comm/Sockets/Sockets.h"
+//#include "../Comm/Sockets/Sockets.h"
 
 using namespace std;
 using namespace MsgPassingCommunication;
@@ -42,6 +42,10 @@ int main()
 	msg1.file("../testing.xml");
 
 	testHarness harness;
+
+	harness.start();
+
+	harness.end();
 
 	//harness.testFunction()
 }

@@ -15,42 +15,18 @@ using namespace MsgPassingCommunication;
 
 typedef void(*funcITest)();
 
-EndPoint ep("localhost", 9890);
-Comm comm(ep, "Comm");
+//EndPoint ep("localhost", 9890);
+//Comm comm(ep, "Comm");
 //BlockingQueue<string> queue;
-thread t;
+//thread t;
+
+//testHarness::comm : comm(EndPoint("localhost", 9890), "Comm") {}
+
+Comm comm(EndPoint("localhost", 9890), "NewComm");
 
 testHarness::testHarness()
 {
-	//EndPoint ep("localhost", 9890);
-	//Comm comm(ep, "Comm");
-	//this->comm = Comm(ep, "Comm");
-	comm.start();
 
-	//thread t1, t2, t3, t4;
-
-	//queue.enQ(t1);
-	//queue.enQ(t2);
-	//queue.enQ(t3);
-	//queue.enQ(t4);
-
-	//t1([this] { runThread(); });
-
-	//t1 = thread([this] { runThread(); });
-	//t2 = thread([this] { runThread(); });
-	//t3 = thread([this] { runThread(); });
-	//t4 = thread([this] { runThread(); });
-
-	//thread t(runThread);
-
-	//thread t([this] { runThread(); });
-
-	t = thread([this] { runThread(); });
-
-	//t1.join();
-	//t2.join();
-	//t3.join();
-	//t4.join();
 }
 
 /*void testHarness::testFunction(string xmlPath)
@@ -81,6 +57,18 @@ testHarness::testHarness()
 	}
 
 }*/
+
+void testHarness::start()
+{
+	comm.start();
+	t = thread([this] { runThread(); });
+}
+
+void testHarness::end()
+{
+	t.join();
+	comm.stop();
+}
 
 void testHarness::testFunction(Message msg)
 {
@@ -143,11 +131,6 @@ void testHarness::runFunction(Message msg)
 
 testHarness::~testHarness()
 {
-	//t1.join();
-	//t2.join();
-	//t3.join();
-	//t4.join();
-
 	t.join();
 
 	comm.stop();
