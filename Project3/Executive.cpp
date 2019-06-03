@@ -6,6 +6,7 @@
 #include <windows.h>
 #include "testHarness.h"
 #include "../Comm/Message/Message.h"
+#include "../Comm/Sockets/Sockets.h"
 
 using namespace std;
 using namespace MsgPassingCommunication;
@@ -42,5 +43,5 @@ int main()
 
 	testHarness harness;
 
-	harness.testFunction()
+	//harness.testFunction()
 }
