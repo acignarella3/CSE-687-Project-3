@@ -2,13 +2,15 @@
 //
 
 #include "pch.h"
-#include <iostream>
+//#include <iostream>
 //#include <windows.h>
 #include "testHarness.h"
 #include "../Comm/Message/Message.h"
 //#include "../Comm/Sockets/Sockets.h"
+#include <winsock2.h>
+#include <thread>
 
-using namespace std;
+//using namespace std;
 using namespace MsgPassingCommunication;
 
 int main()
@@ -31,15 +33,19 @@ int main()
 
 	Message msg1;
 	msg1.file("../testing.xml");
+	msg1.name("Message 1");
 
-	Message msg2;
-	msg1.file("../testing.xml");
+	/*Message msg2;
+	msg2.file("../testing.xml");
+	msg2.name("Message 2");
 
 	Message msg3;
-	msg1.file("../testing.xml");
+	msg3.file("../testing.xml");
+	msg3.name("Message 3");
 
 	Message msg4;
-	msg1.file("../testing.xml");
+	msg4.file("../testing.xml");
+	msg4.name("Message 4");*/
 
 	testHarness harness;
 

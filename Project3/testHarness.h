@@ -1,10 +1,12 @@
 #pragma once
-#include <string>
-#include <vector>
+//#include <string>
+//#include <vector>
 #include "../Comm/MsgPassingComm/Comm.h"
 #include "../Comm/Message/Message.h"
 #include "../Cpp11-BlockingQueue/Cpp11-BlockingQueue/Cpp11-BlockingQueue.h"
 #include "../Comm/Sockets/Sockets.h"
+#include <thread>
+#include <winsock2.h>
 
 using namespace std;
 using namespace MsgPassingCommunication;
