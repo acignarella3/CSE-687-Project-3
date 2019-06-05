@@ -16,26 +16,11 @@ using namespace MsgPassingCommunication;
 int main()
 {
 
-	//string xmlPath = "../testing.xml";
-
-	//testHarness harness;
-
-	//harness.testFunction(xmlPath);
-
-	//STARTUPINFO si;
-	//PROCESS_INFORMATION pi1;
-	//PROCESS_INFORMATION pi2;
-
-	//ZeroMemory(&si, sizeof(si));
-	//si.cb = sizeof(si);
-	//ZeroMemory(&pi1, sizeof(pi1));
-	//ZeroMemory(&pi2, sizeof(pi2));
-
 	Message msg1;
 	msg1.file("../testing.xml");
 	msg1.name("Message 1");
 
-	/*Message msg2;
+	Message msg2;
 	msg2.file("../testing.xml");
 	msg2.name("Message 2");
 
@@ -45,13 +30,17 @@ int main()
 
 	Message msg4;
 	msg4.file("../testing.xml");
-	msg4.name("Message 4");*/
+	msg4.name("Message 4");
 
 	testHarness harness;
 
 	harness.start();
 
+	harness.sendMessage(msg1);
+	//harness.sendMessage(msg2);
+	//harness.sendMessage(msg3);
+	//harness.sendMessage(msg4);
+
 	harness.end();
 
-	//harness.testFunction()
 }

@@ -18,9 +18,9 @@ public:
 	//void testFunction(string xmlPath);
 	void start();
 	void end();
-	void testFunction(Message msg);
+	void sendMessage(Message msg);
 	void runThread();
-	void runFunction(Message msg);
+	void testFunction(Message msg);
 	~testHarness();
 	//EndPoint ep;
 	//Comm comm(EndPoint ep = EndPoint("localhost", 9890), string name = "Comm");

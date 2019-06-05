@@ -42,11 +42,12 @@ This function joins the thread and stops the Comm
 */
 void testHarness::end()
 {
+	queue.enQ("Stop");
 	t.join();
 	comm.stop();
 }
 
-void testHarness::testFunction(Message msg)
+void testHarness::sendMessage(Message msg)
 {
 	//Post the message
 	comm.postMessage(msg);
@@ -76,7 +77,7 @@ void testHarness::runThread()
 
 			Message message = comm.getMessage();
 
-			this->runFunction(message);
+			this->testFunction(message);
 		}
 	} while (msg != "Stop");
 }
@@ -85,7 +86,7 @@ void testHarness::runThread()
 This function goes through the process of explicitly linking the DLL
 and running its test function.
 */
-void testHarness::runFunction(Message msg)
+void testHarness::testFunction(Message msg)
 {
 	string xmlPath = msg.file();
 	string name = msg.name();
