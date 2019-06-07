@@ -19,7 +19,7 @@ public:
 	void start();
 	void end();
 	void sendMessage(Message msg);
-	void runThread();
+	void runThread(BlockingQueue<string>* pQ);
 	void testFunction(Message msg);
 	~testHarness();
 	//EndPoint ep;

@@ -344,7 +344,7 @@ bool SocketConnecter::connect(const std::string& ip, size_t port)
 
     char ipstr[INET6_ADDRSTRLEN];
     void *addr;
-    char *ipver;
+    const char *ipver;
 
     // get pointer to address - different fields in IPv4 and IPv6:
 

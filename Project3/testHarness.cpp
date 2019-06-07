@@ -21,7 +21,12 @@ typedef void(*funcITest)();
 This Comm is established here due to the lack of a default
 constructor.
 */
-Comm comm(EndPoint("localhost", 9890), "NewComm");
+
+EndPoint serverEP("localhost", 9890);
+EndPoint clientEP("localhost", 9891);
+
+Comm comm(serverEP, "NewComm");
+//thread t(runThread, &(this.queue));
 
 testHarness::testHarness()
 {
@@ -34,7 +39,9 @@ This function starts the Comm and the thread
 void testHarness::start()
 {
 	comm.start();
-	t = thread([this] { runThread(); });
+	//t = thread([this] { runThread(); });
+	//t = thread (runThread, &(this->queue));
+	t = thread([this] { runThread(&(this->queue)); });
 }
 
 /*
@@ -49,36 +56,61 @@ void testHarness::end()
 
 void testHarness::sendMessage(Message msg)
 {
+
+	cout << "Message sending" << endl;
+
 	//Post the message
 	comm.postMessage(msg);
+
+	cout << "Message posted" << endl;
 
 	//Lock here to stop races to enqueue
 	{
 		lock_guard<mutex> l(lock);
 	}
 
+	cout << "Going to enqueue" << endl;
+
 	//Enqueue
-	queue.enQ("Ready");
+	this->queue.enQ("Ready");
+
+	cout << "Enqueued" << endl;
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(20));
 
 }
 
-void testHarness::runThread()
+void testHarness::runThread(BlockingQueue<string>* pQ)
 {
 	string msg;
+
+	cout << "Preparing to dequeue" << endl;
 
 	//Run so long as msg isn't "Stop"
 	do {
 		//Dequeue 
-		msg = queue.deQ();
+		msg = pQ->deQ();
+
+		cout << "Dequeued" << endl;
 
 		//Lock to allow for runFunction to run 
 		{
 			lock_guard<mutex> l(lock);
 
-			Message message = comm.getMessage();
+			cout << "Evaluating dequeued msg " << msg << endl;
 
-			this->testFunction(message);
+			if (msg == "Ready") {
+				cout << "Getting message" << endl;
+
+				Message message = comm.getMessage();
+
+				cout << "Got message " << message.name() << endl;
+
+				this->testFunction(message);
+			}
 		}
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 	} while (msg != "Stop");
 }
 

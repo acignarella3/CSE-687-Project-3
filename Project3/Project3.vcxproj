@@ -158,6 +158,12 @@
     <ClInclude Include="testHarness.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Comm\Logger\Logger.cpp" />
+    <ClCompile Include="..\Comm\Message\Message.cpp" />
+    <ClCompile Include="..\Comm\MsgPassingComm\Comm.cpp" />
+    <ClCompile Include="..\Comm\Sockets\Sockets.cpp" />
+    <ClCompile Include="..\Comm\Utilities\Utilities.cpp" />
+    <ClCompile Include="..\Cpp11-BlockingQueue\Cpp11-BlockingQueue\Cpp11-BlockingQueue.cpp" />
     <ClCompile Include="Executive.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -166,6 +172,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="testHarness.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
