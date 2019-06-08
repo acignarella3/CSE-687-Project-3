@@ -8,12 +8,16 @@
 #include "../Comm/Message/Message.h"
 #include "../Comm/Sockets/Sockets.h"
 #include "../Cpp11-BlockingQueue/Cpp11-BlockingQueue/Cpp11-BlockingQueue.h"
-#include <thread>
-#include <winsock2.h>
+#include <iostream>
+#include <functional>
+#include <conio.h>
+//#include <thread>
+//#include <winsock2.h>
 
 using namespace tinyxml2;
 using namespace std;
 using namespace MsgPassingCommunication;
+using namespace Sockets;
 
 typedef void(*funcITest)();
 
@@ -22,10 +26,10 @@ This Comm is established here due to the lack of a default
 constructor.
 */
 
-EndPoint serverEP("localhost", 9890);
-EndPoint clientEP("localhost", 9891);
+//EndPoint serverEP("localhost", 9891);
+//EndPoint clientEP("localhost", 9891);
 
-Comm comm(serverEP, "NewComm");
+Comm commTest(EndPoint("localhost", 9891), "commTest");
 //thread t(runThread, &(this.queue));
 
 testHarness::testHarness()
@@ -38,10 +42,10 @@ This function starts the Comm and the thread
 */
 void testHarness::start()
 {
-	comm.start();
+	commTest.start();
 	//t = thread([this] { runThread(); });
 	//t = thread (runThread, &(this->queue));
-	t = thread([this] { runThread(&(this->queue)); });
+	//t = thread([this] { runThread(&(this->queue)); });
 }
 
 /*
@@ -50,33 +54,52 @@ This function joins the thread and stops the Comm
 void testHarness::end()
 {
 	queue.enQ("Stop");
-	t.join();
-	comm.stop();
+	//t.join();
+	commTest.stop();
 }
 
-void testHarness::sendMessage(Message msg)
+void testHarness::sendMessage(Message msg, EndPoint ep)
 {
 
 	cout << "Message sending" << endl;
 
 	//Post the message
-	comm.postMessage(msg);
+	//comm.postMessage(msg);
+
+	//cout << "Message posted" << endl;
+
+	//Lock here to stop races to enqueue
+	/*{
+		lock_guard<mutex> l(lock);
+
+		comm.postMessage(msg);
+	}*/
+
+	commTest.postMessage(msg);
 
 	cout << "Message posted" << endl;
 
-	//Lock here to stop races to enqueue
-	{
-		lock_guard<mutex> l(lock);
-	}
+	//Message newMsg = commTest.getMessage();
 
-	cout << "Going to enqueue" << endl;
+	Message newMsg;
+
+	newMsg.to(ep);
+	newMsg.from(ep);
+
+	newMsg = commTest.getMessage();
+
+	cout << "Message received: " << newMsg.name() << endl;
+
+	//cout << "Message posted" << endl;
+
+	//cout << "Going to enqueue" << endl;
 
 	//Enqueue
-	this->queue.enQ("Ready");
+	//this->queue.enQ("Ready");
 
 	cout << "Enqueued" << endl;
 
-	std::this_thread::sleep_for(std::chrono::milliseconds(20));
+	//std::this_thread::sleep_for(std::chrono::milliseconds(20));
 
 }
 
@@ -102,7 +125,7 @@ void testHarness::runThread(BlockingQueue<string>* pQ)
 			if (msg == "Ready") {
 				cout << "Getting message" << endl;
 
-				Message message = comm.getMessage();
+				Message message = commTest.getMessage();
 
 				cout << "Got message " << message.name() << endl;
 

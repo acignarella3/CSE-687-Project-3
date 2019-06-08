@@ -16,14 +16,16 @@ using namespace MsgPassingCommunication;
 int main()
 {
 
-	EndPoint serverEP("localhost", 9890);
-	EndPoint clientEP("localhost", 9891);
+	//EndPoint serverEP("localhost", 9890);
+	//EndPoint clientEP("localhost", 9891);
+
+	EndPoint ep("localhost", 9890);
 
 	Message msg1;
 	msg1.file("../testing.xml");
 	msg1.name("Message 1");
-	msg1.to(clientEP);
-	msg1.from(serverEP);
+	msg1.to(ep);
+	msg1.from(ep);
 
 	Message msg2;
 	msg2.file("../testing.xml");
@@ -43,7 +45,7 @@ int main()
 
 	cout << "Sending messages now" << endl;
 
-	harness.sendMessage(msg1);
+	harness.sendMessage(msg1, ep);
 	//harness.sendMessage(msg2);
 	//harness.sendMessage(msg3);
 	//harness.sendMessage(msg4);

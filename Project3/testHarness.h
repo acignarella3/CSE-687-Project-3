@@ -18,7 +18,7 @@ public:
 	//void testFunction(string xmlPath);
 	void start();
 	void end();
-	void sendMessage(Message msg);
+	void sendMessage(Message msg, EndPoint ep);
 	void runThread(BlockingQueue<string>* pQ);
 	void testFunction(Message msg);
 	~testHarness();
