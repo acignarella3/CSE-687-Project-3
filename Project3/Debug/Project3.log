@@ -1,2 +1,12 @@
-﻿  testHarness.cpp
+﻿  pch.cpp
+  Cpp11-BlockingQueue.cpp
+  Logger.cpp
+  Message.cpp
+  Comm.cpp
+  Sockets.cpp
+  Utilities.cpp
+  Executive.cpp
+  testHarness.cpp
+  tinyxml2.cpp
+  Generating Code...
   Project3.vcxproj -> C:\Users\acign\Documents\CSE 687 Projects\Project 3\CSE-687-Project-3\Debug\Project3.exe

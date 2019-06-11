@@ -510,8 +510,8 @@ int main()
   // if you uncomment the lines below, you will run all demos
 
   //DemoSndrRcvr("Odin");  // replace "Odin" with your machine name
-  //DemoCommClass("Odin");
-  DemoClientServer();
+  DemoCommClass("Odin");
+  //DemoClientServer();
 
   return 0;
 }

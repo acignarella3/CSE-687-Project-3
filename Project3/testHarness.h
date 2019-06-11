@@ -30,5 +30,5 @@ public:
 	BlockingQueue<string> queue;
 	//thread t1, t2, t3, t4;
 	thread t;
-	mutex lock;
+	static mutex lock;
 };

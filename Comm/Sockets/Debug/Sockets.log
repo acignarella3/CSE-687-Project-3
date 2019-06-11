@@ -1,6 +1,2 @@
-﻿  Logger.cpp
-  Utilities.cpp
-  WindowsHelpers.cpp
-  Sockets.cpp
-  Generating Code...
-  Sockets.vcxproj -> C:\Users\acign\Documents\CSE 687 Projects\Project 3\CSE-687-Project-3\Debug\Sockets.lib
+﻿  Sockets.cpp
+  Sockets.vcxproj -> C:\Users\acign\Documents\CSE 687 Projects\Project 3\CSE-687-Project-3\Comm\Debug\Sockets.lib

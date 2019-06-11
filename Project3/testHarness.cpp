@@ -7,7 +7,10 @@
 #include "../Comm/MsgPassingComm/Comm.h"
 #include "../Comm/Message/Message.h"
 #include "../Comm/Sockets/Sockets.h"
-#include "../Cpp11-BlockingQueue/Cpp11-BlockingQueue/Cpp11-BlockingQueue.h"
+//#include "../Cpp11-BlockingQueue/Cpp11-BlockingQueue/Cpp11-BlockingQueue.h"
+#include "../Comm/Cpp11-BlockingQueue/Cpp11-BlockingQueue.h"
+#include "../Comm/Logger/Logger.h"
+//#include "../Comm/Utilities/Utilities.h"
 #include <iostream>
 #include <functional>
 #include <conio.h>
@@ -29,7 +32,7 @@ constructor.
 //EndPoint serverEP("localhost", 9891);
 //EndPoint clientEP("localhost", 9891);
 
-Comm commTest(EndPoint("localhost", 9891), "commTest");
+//Comm commTest(EndPoint("localhost", 9891), "commTest");
 //thread t(runThread, &(this.queue));
 
 testHarness::testHarness()
@@ -42,7 +45,7 @@ This function starts the Comm and the thread
 */
 void testHarness::start()
 {
-	commTest.start();
+	//commTest.start();
 	//t = thread([this] { runThread(); });
 	//t = thread (runThread, &(this->queue));
 	//t = thread([this] { runThread(&(this->queue)); });
@@ -55,11 +58,15 @@ void testHarness::end()
 {
 	queue.enQ("Stop");
 	//t.join();
-	commTest.stop();
+	//commTest.stop();
 }
 
 void testHarness::sendMessage(Message msg, EndPoint ep)
 {
+
+	Comm commTest(EndPoint("localhost", 9191), "commTest");
+
+	commTest.start();
 
 	cout << "Message sending" << endl;
 
@@ -75,20 +82,28 @@ void testHarness::sendMessage(Message msg, EndPoint ep)
 		comm.postMessage(msg);
 	}*/
 
+	StaticLogger<1>::flush();
+
 	commTest.postMessage(msg);
+
+	StaticLogger<1>::stop();
 
 	cout << "Message posted" << endl;
 
+	msg = commTest.getMessage();
+
+	//cout << commTest.getMessage() << endl;
+
 	//Message newMsg = commTest.getMessage();
 
-	Message newMsg;
+	//Message newMsg;
 
-	newMsg.to(ep);
-	newMsg.from(ep);
+	//newMsg.to(ep);
+	//newMsg.from(ep);
 
-	newMsg = commTest.getMessage();
+	//newMsg = commTest.getMessage();
 
-	cout << "Message received: " << newMsg.name() << endl;
+	cout << "Message received: " << msg.name() << endl;
 
 	//cout << "Message posted" << endl;
 
@@ -99,11 +114,13 @@ void testHarness::sendMessage(Message msg, EndPoint ep)
 
 	cout << "Enqueued" << endl;
 
+	commTest.stop();
+
 	//std::this_thread::sleep_for(std::chrono::milliseconds(20));
 
 }
 
-void testHarness::runThread(BlockingQueue<string>* pQ)
+/*void testHarness::runThread(BlockingQueue<string>* pQ)
 {
 	string msg;
 
@@ -136,7 +153,7 @@ void testHarness::runThread(BlockingQueue<string>* pQ)
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 	} while (msg != "Stop");
 }
-
+*/
 /*
 This function goes through the process of explicitly linking the DLL
 and running its test function.

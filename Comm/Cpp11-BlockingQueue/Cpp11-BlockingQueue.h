@@ -114,7 +114,7 @@ T BlockingQueue<T>::deQ()
   // may have spurious returns so loop on !condition
 
   while (q_.size() == 0)
-    cv_.wait(l, [this] () { return q_.size() > 0; });
+	  cv_.wait(l, [this]() { return q_.size() > 0; });
   T temp = q_.front();
   q_.pop();
   return temp;

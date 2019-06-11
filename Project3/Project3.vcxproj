@@ -158,12 +158,12 @@
     <ClInclude Include="testHarness.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Comm\Cpp11-BlockingQueue\Cpp11-BlockingQueue.cpp" />
     <ClCompile Include="..\Comm\Logger\Logger.cpp" />
     <ClCompile Include="..\Comm\Message\Message.cpp" />
     <ClCompile Include="..\Comm\MsgPassingComm\Comm.cpp" />
     <ClCompile Include="..\Comm\Sockets\Sockets.cpp" />
     <ClCompile Include="..\Comm\Utilities\Utilities.cpp" />
-    <ClCompile Include="..\Cpp11-BlockingQueue\Cpp11-BlockingQueue\Cpp11-BlockingQueue.cpp" />
     <ClCompile Include="Executive.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
