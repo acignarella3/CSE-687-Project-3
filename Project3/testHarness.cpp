@@ -32,12 +32,16 @@ constructor.
 //EndPoint serverEP("localhost", 9891);
 //EndPoint clientEP("localhost", 9891);
 
-//Comm commTest(EndPoint("localhost", 9891), "commTest");
+//Comm commTest(EndPoint("localhost", 9890), "commTest");
 //thread t(runThread, &(this.queue));
+//Comm commTest(EndPoint("localhost", 9890), "commTest");
 
 testHarness::testHarness()
 {
-
+	this->publicEP1 = EndPoint("localhost", 9890);
+	this->publicEP2 = EndPoint("localhost", 9190);
+	//this->commTest = Comm(this->publicEP, "commTest");
+	//commTest = new Comm(this->publicEP, "commTest");
 }
 
 /*
@@ -45,6 +49,7 @@ This function starts the Comm and the thread
 */
 void testHarness::start()
 {
+
 	//commTest.start();
 	//t = thread([this] { runThread(); });
 	//t = thread (runThread, &(this->queue));
@@ -61,17 +66,34 @@ void testHarness::end()
 	//commTest.stop();
 }
 
-void testHarness::sendMessage(Message msg, EndPoint ep)
+void testHarness::sendMessage(Message msg)
 {
 
-	Comm commTest(EndPoint("localhost", 9191), "commTest");
+	// EndPoint ep("localhost", 9191);
 
+	//EndPoint ep2("localhost", 9191);
+
+	Comm server(this->publicEP1, "server");
+	Comm commTest(this->publicEP2, "commTest");
+
+	server.start();
 	commTest.start();
+
+	//msg.to(ep);
+	//msg.from(ep);
 
 	cout << "Message sending" << endl;
 
 	//Post the message
 	//comm.postMessage(msg);
+	//commTest.postMessage(msg);
+	server.postMessage(msg);
+
+	cout << "Message sent, receiving now" << endl;
+
+	Message newMsg = commTest.getMessage();
+
+	cout << "Message received: " << newMsg.name() << endl;
 
 	//cout << "Message posted" << endl;
 
@@ -82,15 +104,15 @@ void testHarness::sendMessage(Message msg, EndPoint ep)
 		comm.postMessage(msg);
 	}*/
 
-	StaticLogger<1>::flush();
+	//StaticLogger<1>::flush();
 
-	commTest.postMessage(msg);
+	//commTest.postMessage(msg);
 
-	StaticLogger<1>::stop();
+	//StaticLogger<1>::stop();
 
-	cout << "Message posted" << endl;
+	//cout << "Message posted" << endl;
 
-	msg = commTest.getMessage();
+	//msg = commTest.getMessage();
 
 	//cout << commTest.getMessage() << endl;
 
@@ -103,7 +125,7 @@ void testHarness::sendMessage(Message msg, EndPoint ep)
 
 	//newMsg = commTest.getMessage();
 
-	cout << "Message received: " << msg.name() << endl;
+	//cout << "Message received: " << msg.name() << endl;
 
 	//cout << "Message posted" << endl;
 
@@ -112,8 +134,9 @@ void testHarness::sendMessage(Message msg, EndPoint ep)
 	//Enqueue
 	//this->queue.enQ("Ready");
 
-	cout << "Enqueued" << endl;
+	//cout << "Enqueued" << endl;
 
+	server.stop();
 	commTest.stop();
 
 	//std::this_thread::sleep_for(std::chrono::milliseconds(20));

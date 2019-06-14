@@ -18,10 +18,13 @@ public:
 	//void testFunction(string xmlPath);
 	void start();
 	void end();
-	void sendMessage(Message msg, EndPoint ep);
+	void sendMessage(Message msg);
 	void runThread(BlockingQueue<string>* pQ);
 	void testFunction(Message msg);
 	~testHarness();
+	EndPoint publicEP1;
+	EndPoint publicEP2;
+	//Comm commTest;
 	//EndPoint ep;
 	//Comm comm(EndPoint ep = EndPoint("localhost", 9890), string name = "Comm");
 	//Comm comm();
